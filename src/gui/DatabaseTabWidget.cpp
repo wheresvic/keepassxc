@@ -63,6 +63,7 @@ DatabaseTabWidget::DatabaseTabWidget(QWidget* parent)
     connect(this, SIGNAL(currentChanged(int)), SLOT(emitActivateDatabaseChanged()));
     connect(this, SIGNAL(activateDatabaseChanged(DatabaseWidget*)), m_dbWidgetSateSync, SLOT(setActive(DatabaseWidget*)));
     connect(autoType(), SIGNAL(globalShortcutTriggered()), SLOT(performGlobalAutoType()));
+    connect(autoType(), SIGNAL(autotypePerformed()), SLOT(relockDatabases()));
 }
 
 DatabaseTabWidget::~DatabaseTabWidget()
@@ -730,6 +731,19 @@ void DatabaseTabWidget::lockDatabases()
     }
 }
 
+void DatabaseTabWidget::relockDatabases()
+{
+    if (m_pendingLock != nullptr && config()->get("security/autotyperelock").toBool()) {
+        //m_pendingLock->closeUnlockDialog();
+        //setCurrentWidget(m_pendingLock);
+        m_pendingLock->lock();
+        //updateTabName(m_pendingLock->database());
+
+        Q_EMIT databaseLocked(m_pendingLock);
+        m_pendingLock = nullptr;
+    }
+}
+
 void DatabaseTabWidget::modified()
 {
     Q_ASSERT(qobject_cast<Database*>(sender()));
@@ -820,6 +834,7 @@ void DatabaseTabWidget::performGlobalAutoType()
     if (unlockedDatabases.size() > 0) {
         autoType()->performGlobalAutoType(unlockedDatabases);
     } else if (m_dbList.size() > 0){
-        indexDatabaseManagerStruct(0).dbWidget->showUnlockDialog();
+        m_pendingLock = indexDatabaseManagerStruct(0).dbWidget;
+        m_pendingLock->showUnlockDialog();
     }
 }

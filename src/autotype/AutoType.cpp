@@ -19,6 +19,7 @@
 
 #include <QApplication>
 #include <QPluginLoader>
+#include <QDebug>
 
 #include "config-keepassx.h"
 
@@ -217,6 +218,8 @@ void AutoType::performGlobalAutoType(const QList<Database*>& dbList)
     else if ((entryList.size() == 1) && !config()->get("security/autotypeask").toBool()) {
         m_inAutoType = false;
         performAutoType(entryList.first(), nullptr, sequenceHash[entryList.first()]);
+
+        Q_EMIT autotypePerformed();
     }
     else {
         m_windowFromGlobal = m_plugin->activeWindow();
@@ -243,13 +246,18 @@ void AutoType::performAutoTypeFromGlobal(Entry* entry, const QString& sequence)
 
     m_inAutoType = false;
     performAutoType(entry, nullptr, sequence, m_windowFromGlobal);
+
+    Q_EMIT autotypePerformed();
 }
 
 void AutoType::resetInAutoType()
 {
-    Q_ASSERT(m_inAutoType);
+    qDebug() << "Done\n";
+    //Q_ASSERT(m_inAutoType);
 
     m_inAutoType = false;
+
+    Q_EMIT autotypePerformed();
 }
 
 void AutoType::unloadPlugin()

@@ -85,6 +85,13 @@
      </property>
     </widget>
    </item>
+   <item row="6" column="0">
+    <widget class="QCheckBox" name="autoTypeRelockCheckBox">
+     <property name="text">
+      <string>Prevent leaving unlocked database after performing auto-type</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>

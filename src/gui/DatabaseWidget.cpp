@@ -157,7 +157,7 @@ DatabaseWidget::DatabaseWidget(Database* db, QWidget* parent)
     connect(m_databaseOpenMergeWidget, SIGNAL(editFinished(bool)), SLOT(mergeDatabase(bool)));
     connect(m_keepass1OpenWidget, SIGNAL(editFinished(bool)), SLOT(openDatabase(bool)));
     connect(m_unlockDatabaseWidget, SIGNAL(editFinished(bool)), SLOT(unlockDatabase(bool)));
-	connect(m_unlockDatabaseDialog, SIGNAL(unlockDone(bool)), SLOT(unlockDatabase(bool)));
+    connect(m_unlockDatabaseDialog, SIGNAL(unlockDone(bool)), SLOT(unlockDatabase(bool)));
     connect(&m_fileWatcher, SIGNAL(fileChanged(QString)), this, SLOT(onWatchedFileChanged()));
     connect(&m_fileWatchTimer, SIGNAL(timeout()), this, SLOT(reloadDatabaseFile()));
     connect(&m_ignoreWatchTimer, SIGNAL(timeout()), this, SLOT(onWatchedFileChanged()));
@@ -934,7 +934,7 @@ Group* DatabaseWidget::currentGroup() const
 
 void DatabaseWidget::lock()
 {
-    Q_ASSERT(currentMode() != DatabaseWidget::LockedMode);
+    //Q_ASSERT(currentMode() != DatabaseWidget::LockedMode);
 
     if (m_groupView->currentGroup()) {
         m_groupBeforeLock = m_groupView->currentGroup()->uuid();

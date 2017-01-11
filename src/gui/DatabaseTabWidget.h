@@ -77,6 +77,7 @@ public Q_SLOTS:
     bool readOnly(int index = -1);
     void performGlobalAutoType();
     void lockDatabases();
+    void relockDatabases();
 
 Q_SIGNALS:
     void tabNameChanged();
@@ -111,6 +112,7 @@ private:
     KeePass2Writer m_writer;
     QHash<Database*, DatabaseManagerStruct> m_dbList;
     DatabaseWidgetStateSync* m_dbWidgetSateSync;
+    DatabaseWidget* m_pendingLock;
 };
 
 #endif // KEEPASSX_DATABASETABWIDGET_H

@@ -141,6 +141,7 @@ void SettingsWidget::loadSettings()
     m_secUi->passwordRepeatCheckBox->setChecked(config()->get("security/passwordsrepeat").toBool());
 
     m_secUi->autoTypeAskCheckBox->setChecked(config()->get("security/autotypeask").toBool());
+    m_secUi->autoTypeRelockCheckBox->setChecked(config()->get("security/autotyperelock").toBool());
 
     Q_FOREACH (const ExtraPage& page, m_extraPages)
         page.loadSettings();
@@ -187,6 +188,7 @@ void SettingsWidget::saveSettings()
     config()->set("security/passwordsrepeat", m_secUi->passwordRepeatCheckBox->isChecked());
 
     config()->set("security/autotypeask", m_secUi->autoTypeAskCheckBox->isChecked());
+    config()->set("security/autotyperelock", m_secUi->autoTypeRelockCheckBox->isChecked());
 
     Q_FOREACH (const ExtraPage& page, m_extraPages)
         page.saveSettings();

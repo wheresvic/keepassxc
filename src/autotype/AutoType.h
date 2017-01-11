@@ -53,6 +53,7 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void globalShortcutTriggered();
+    void autotypePerformed();
 
 private Q_SLOTS:
     void performAutoTypeFromGlobal(Entry* entry, const QString& sequence);

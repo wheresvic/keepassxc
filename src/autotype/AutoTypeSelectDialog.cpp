@@ -96,6 +96,10 @@ void AutoTypeSelectDialog::emitEntryActivated(const QModelIndex& index)
 
 void AutoTypeSelectDialog::entryRemoved()
 {
+    // make sure we don't emit the signal twice when re-locking the database
+    if (m_entryActivatedEmitted) {
+        //return;
+    }
     if (m_view->model()->rowCount() == 0) {
         reject();
     }
