@@ -50,6 +50,13 @@
     </screenshots>
 
     <releases>
+        <release version="2.4.1" date="2019-03-26">
+            <description>
+                <ul>
+                  <li>Stuff</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.4.0" date="2019-03-19">
             <description>
                 <ul>
